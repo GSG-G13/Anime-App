@@ -1,17 +1,20 @@
-const inp = document.querySelector('#search')
-inp.addEventListener('keyup',(e)=>{
-  api("POST",`/search?q=${e.target.value}`)
-})
-// const list = document.querySelector('.list')
+const inp = document.querySelector("#search");
+const list = document.querySelector(".list");
 
-// const createElement = (data)=>{
-//   list.innerHTML = ''
-//   data.forEach(element => {
-//     const li = document.createElement('li');
-//     li.classList.add('value');
-//     li.textContent = element;
-//     list.appendChild(li)
-//   });
-// }
+const createElement = (data) => {
+  list.innerHTML = "";
+  data.forEach((element) => {
+    const li = document.createElement("li");
+    li.classList.add("value");
+    li.textContent = element;
+    list.appendChild(li);
+  });
+};
 
-// module.exports = {createElement}
+inp.addEventListener("keyup", (e) => {
+  if(e.target.value === ''){
+    list.innerHTML = ''
+    return 
+  }
+  api("GET", `/search?q=${e.target.value}`);
+});
