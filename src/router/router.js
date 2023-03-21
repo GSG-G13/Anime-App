@@ -36,21 +36,36 @@ const router = (req,res)=>{
         res.end(file)
       }
     })
-  }else if(url ==="/animes"){
+  }else if(url === '/js/request.js'){
+    const filePath = path.join(__dirname,'../../public','js','request.js')
+    fs.readFile(filePath,(err,file)=>{
+      if(err){
+        res.writeHead(500);
+        res.end("server error")
+      }else{
+        res.writeHead(200);
+        res.end(file)
+      }
+    })
+  }
+  else if(url ==="/search"){
     let allData = ''
     req.on('data',chunck=>{
       allData += chunck
     })
 
     req.on('end',()=>{
-      fs.readFile("../post.json",(err,data)=>{
+      const filePath = path.join(__dirname,'..','post.json')
+      fs.readFile(filePath,(err,data)=>{
         if(err){
           console.log(err);
           return
         }else{
-          res.writeHead(200),
-          res.end(data)
-        }
+          let myData = JSON.parse(data)
+          let newData = myData.filter(e=> e.includes('Cowboy'))
+          res.writeHead(200,{Location: '/'}),
+          res.end(newData)
+        } 
       })
     
     })
