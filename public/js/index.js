@@ -82,6 +82,15 @@ inp.addEventListener("keyup", (e) => {
 btn.addEventListener("click", () => {
   content.innerHTML = ''
   api("GET", `/result?q=${inp.value}`)
+
+  setTimeout(()=>{
+    const card = document.querySelectorAll('.card');
+    card.forEach(e=>{
+      e.style.transform = 'scale(1)'
+      e.style.opacity = '1'
+    })
+
+  },1000)
 })
 const listen = (liList) => {
   list.style.display = "flex"
