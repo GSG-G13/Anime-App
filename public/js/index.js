@@ -70,21 +70,27 @@ const createPost = (data) => {
 }
 
 inp.addEventListener("keyup", (e) => {
+
   if (e.target.value === '') {
     list.innerHTML = ''
     return
   }
   api("GET", `/search?q=${e.target.value}`);
+  list.style.visibility = 'visible'
 });
 
 btn.addEventListener("click", () => {
+  content.innerHTML = ''
   api("GET", `/result?q=${inp.value}`)
 })
 const listen = (liList) => {
+  list.style.display = "flex"
   liList.forEach(e => {
     e.addEventListener("click", () => {
       inp.value = e.textContent
       e.parentElement.innerHTML = '';
+      list.style.display = "none"
+      // e.parentElement.style.display = "none"
     })
   })
 }
