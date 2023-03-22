@@ -1,9 +1,11 @@
 const fs = require("fs");
 const path = require("path");
 const posts = require("../post.json");
-
+const sendReq = require("../requestApi")
+const https = require("https")
 const router = (req, res) => {
   const url = req.url;
+
 
   if (url === "/") {
     const filePath = path.join(__dirname, "../../public", "index.html");
@@ -51,14 +53,28 @@ const router = (req, res) => {
     });
   } else if (url.includes("/search")) {
     const searchQuery = url.split("?q=");
-
     const filteredPosts = posts.filter((post) => {
       return post.toLowerCase().startsWith(searchQuery[1].toLowerCase());
     });
-
-    console.log(filteredPosts);
     res.writeHead(200);
     res.end(JSON.stringify(filteredPosts));
+  } else if (url.includes("/result")) {
+    let searchInput = url.split("?q=")[1]
+    https.get("https://kitsu.io/api/edge/anime?page[limit]=20", (resp) => {
+      let oldData = '';
+      resp.on('data', (chunk) => {
+        oldData += chunk;
+      });
+      resp.on('end', () => {
+        let allData = JSON.parse(oldData)
+        let posts = allData.data.filter(e => (e.attributes.canonicalTitle.toLowerCase()).startsWith(searchInput.toLowerCase()))
+        res.writeHead(200);
+        res.end(JSON.stringify(posts));
+      });
+    }).on("error", (err) => {
+      console.log("Error: " + err.message);
+
+    });
   }
 };
 
