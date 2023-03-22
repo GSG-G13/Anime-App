@@ -12,6 +12,10 @@ const createElement = (data) => {
   });
 };
 
+// const autoCompleat = (e)=>{
+//   console.log(e)
+// }
+
 const createPost = (data) => {
   data.forEach(e => {
     // console.log(e.attributes.canonicalTitle);
@@ -66,3 +70,10 @@ inp.addEventListener("keyup", (e) => {
 btn.addEventListener("click", () => {
   api("GET", `/result?q=${inp.value}`)
 })
+const listen = (liList) => {
+  liList.forEach(e => {
+    e.addEventListener("click", () => {
+      inp.value = e.textContent
+    })
+  })
+}
