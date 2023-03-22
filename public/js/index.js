@@ -88,8 +88,6 @@ btn.addEventListener("click", () => {
     })
 
   },1000)
-  content.innerHTML = '';
-  api("GET", `/result?q=${inp.value}`);
 })
 const listen = (liList) => {
   list.style.display = "flex";
