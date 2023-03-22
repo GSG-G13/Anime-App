@@ -12,9 +12,19 @@ const createElement = (data) => {
   });
 };
 
-// const autoCompleat = (e)=>{
-//   console.log(e)
-// }
+const createError = (err) => {
+  if (err.length > 2) {
+    // console.log("kjkvvjh");
+    const img = document.createElement("img")
+    img.src = "../img/404.jpg"
+    img.classList.add("err-img")
+    const errdiv = document.createElement("div")
+    errdiv.classList.add("err-div")
+    errdiv.appendChild(img)
+    content.innerHTML = ''
+    content.appendChild(errdiv)
+  }
+}
 
 const createPost = (data) => {
   data.forEach(e => {
@@ -74,6 +84,8 @@ const listen = (liList) => {
   liList.forEach(e => {
     e.addEventListener("click", () => {
       inp.value = e.textContent
+      e.parentElement.innerHTML = '';
     })
   })
 }
+
