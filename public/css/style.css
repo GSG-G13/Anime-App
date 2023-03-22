@@ -129,3 +129,14 @@ height: 100%;
   font-size: 18px;
 }
 
+.err-div{
+  width: 1200px;
+  height: 500px;
+  margin: auto;
+}
+
+.err-img{
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+}
