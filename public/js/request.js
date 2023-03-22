@@ -7,6 +7,8 @@ const api = (method, url) => {
                 createPost(res)
             } else {
                 createElement(res);
+                const liList = document.querySelectorAll("li.value")
+                listen(liList)
             }
         }
     }

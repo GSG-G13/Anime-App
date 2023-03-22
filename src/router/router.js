@@ -67,7 +67,11 @@ const router = (req, res) => {
       });
       resp.on('end', () => {
         let allData = JSON.parse(oldData)
-        let posts = allData.data.filter(e => (e.attributes.canonicalTitle.toLowerCase()).startsWith(searchInput.toLowerCase()))
+        allData.data.forEach(e => {
+          console.log(e);
+        });
+        let posts = allData.data.filter(e => (e.attributes.canonicalTitle.toLowerCase()).includes(searchInput.toLowerCase()))
+        console.log(posts);
         res.writeHead(200);
         res.end(JSON.stringify(posts));
       });
