@@ -76,18 +76,25 @@ inp.addEventListener("keyup", (e) => {
   list.style.visibility = 'visible';
 });
 
+inp.addEventListener("focus", () => {
+  list.style.visibility = 'visible';
+})
+inp.addEventListener("blur", () => {
+  list.style.visibility = 'hidden';
+})
+
 btn.addEventListener("click", () => {
   content.innerHTML = ''
   api("GET", `/result?q=${inp.value}`)
 
-  setTimeout(()=>{
+  setTimeout(() => {
     const card = document.querySelectorAll('.card');
-    card.forEach(e=>{
+    card.forEach(e => {
       e.style.transform = 'scale(1)'
       e.style.opacity = '1'
     })
 
-  },1000)
+  }, 1000)
 })
 const listen = (liList) => {
   list.style.display = "flex";
